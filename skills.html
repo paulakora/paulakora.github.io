@@ -37,7 +37,7 @@
 </head>
 <body>
   <h1>My Skills Tree</h1>
-  <canvas id="skillsTree" width="800" height="600"></canvas>
+  <canvas id="skillsTree" width="900" height="700"></canvas>
   <div class="tooltip" id="tooltip"></div>
 
   <script>
@@ -45,51 +45,83 @@
     const ctx = canvas.getContext("2d");
     const tooltip = document.getElementById("tooltip");
 
-    const skills = [
-      // Data Analysis
-      { name: "Python", x: 400, y: 100 },
-      { name: "Pandas", x: 320, y: 160 },
-      { name: "NumPy", x: 480, y: 160 },
-      { name: "R", x: 270, y: 220 },
-      { name: "SQL", x: 530, y: 220 },
-      { name: "Excel", x: 210, y: 280 },
-      { name: "noSQL", x: 590, y: 280 },
-      // ML
-      { name: "TensorFlow", x: 400, y: 300 },
-      { name: "Keras", x: 340, y: 360 },
-      // Viz
-      { name: "Matplotlib", x: 460, y: 360 },
-      { name: "Seaborn", x: 280, y: 420 },
-      { name: "Tableau", x: 520, y: 420 },
-      { name: "Plotly", x: 220, y: 480 },
-      { name: "Power BI", x: 580, y: 480 },
-      // Tools
-      { name: "Git", x: 400, y: 500 },
-      { name: "Jupyter", x: 340, y: 550 },
-      { name: "VS Code", x: 460, y: 550 }
+    const baseX = 450;
+    const baseY = 650;
+
+    const categories = [
+      {
+        name: "Data Analysis",
+        x: baseX - 200,
+        y: baseY - 150,
+        skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
+      },
+      {
+        name: "Machine Learning",
+        x: baseX,
+        y: baseY - 200,
+        skills: ["TensorFlow", "Keras"]
+      },
+      {
+        name: "Visualization",
+        x: baseX + 200,
+        y: baseY - 150,
+        skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
+      },
+      {
+        name: "Tools",
+        x: baseX - 100,
+        y: baseY - 300,
+        skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
+      },
+      {
+        name: "Soft Skills",
+        x: baseX + 100,
+        y: baseY - 300,
+        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
+      }
     ];
 
     function drawTree() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.strokeStyle = "#438A36";
       ctx.lineWidth = 2;
+      ctx.fillStyle = "#438A36";
 
-      // central trunk
+      // Draw trunk
       ctx.beginPath();
-      ctx.moveTo(400, 600);
-      ctx.lineTo(400, 100);
+      ctx.moveTo(baseX, baseY);
+      ctx.lineTo(baseX, baseY - 100);
       ctx.stroke();
 
-      skills.forEach(skill => {
+      categories.forEach(cat => {
+        // Draw branch to category
         ctx.beginPath();
-        ctx.moveTo(400, 100);
-        ctx.lineTo(skill.x, skill.y);
+        ctx.moveTo(baseX, baseY - 100);
+        ctx.lineTo(cat.x, cat.y);
         ctx.stroke();
 
+        // Draw category point
         ctx.beginPath();
-        ctx.arc(skill.x, skill.y, 6, 0, 2 * Math.PI);
-        ctx.fillStyle = "#438A36";
+        ctx.arc(cat.x, cat.y, 6, 0, 2 * Math.PI);
         ctx.fill();
+
+        // Draw skills as leaves
+        cat.skills.forEach((skill, i) => {
+          const offset = (i - (cat.skills.length - 1) / 2) * 25;
+          const skillX = cat.x + offset;
+          const skillY = cat.y - 50;
+
+          ctx.beginPath();
+          ctx.moveTo(cat.x, cat.y);
+          ctx.lineTo(skillX, skillY);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(skillX, skillY, 6, 0, 2 * Math.PI);
+          ctx.fill();
+
+          cat.skills[i] = { name: skill, x: skillX, y: skillY };
+        });
       });
     }
 
@@ -99,16 +131,18 @@
       const y = e.clientY - rect.top;
       let found = false;
 
-      skills.forEach(skill => {
-        const dx = x - skill.x;
-        const dy = y - skill.y;
-        if (Math.sqrt(dx * dx + dy * dy) < 10) {
-          tooltip.style.left = `${e.pageX + 10}px`;
-          tooltip.style.top = `${e.pageY + 10}px`;
-          tooltip.textContent = skill.name;
-          tooltip.style.opacity = 1;
-          found = true;
-        }
+      categories.forEach(cat => {
+        cat.skills.forEach(skill => {
+          const dx = x - skill.x;
+          const dy = y - skill.y;
+          if (Math.sqrt(dx * dx + dy * dy) < 10) {
+            tooltip.style.left = `${e.pageX + 10}px`;
+            tooltip.style.top = `${e.pageY + 10}px`;
+            tooltip.textContent = skill.name;
+            tooltip.style.opacity = 1;
+            found = true;
+          }
+        });
       });
 
       if (!found) {
