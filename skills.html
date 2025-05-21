@@ -53,50 +53,50 @@
   </nav>
 
   <h1>My Skills Tree</h1>
-  <canvas id="skillsTree" width="1200" height="800"></canvas>
+  <canvas id="skillsTree" width="1600" height="1000"></canvas>
 
   <script>
     const canvas = document.getElementById("skillsTree");
     const ctx = canvas.getContext("2d");
 
-    const baseX = 600;
-    const baseY = 750;
+    const baseX = 800;
+    const baseY = 950;
 
     const categories = [
       {
         name: "Data Analysis",
-        x: baseX - 300,
-        y: baseY - 150,
+        x: baseX - 500,
+        y: baseY - 200,
         skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
       },
       {
         name: "Machine Learning",
-        x: baseX - 150,
-        y: baseY - 250,
+        x: baseX - 250,
+        y: baseY - 300,
         skills: ["TensorFlow", "Keras", "scikit-learn"]
       },
       {
         name: "Visualization",
-        x: baseX + 150,
-        y: baseY - 250,
+        x: baseX + 250,
+        y: baseY - 300,
         skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
       },
       {
         name: "Tools",
-        x: baseX - 200,
-        y: baseY - 400,
+        x: baseX - 300,
+        y: baseY - 500,
         skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
       },
       {
         name: "Soft Skills",
-        x: baseX + 200,
-        y: baseY - 400,
+        x: baseX + 300,
+        y: baseY - 500,
         skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
       },
       {
         name: "Learning",
         x: baseX,
-        y: baseY - 520,
+        y: baseY - 650,
         skills: ["Docker", "FastAPI", "NLP", "LLM", "Streamlit"]
       }
     ];
@@ -106,7 +106,7 @@
       ctx.strokeStyle = "#438A36";
       ctx.lineWidth = 2;
       ctx.fillStyle = "#438A36";
-      ctx.font = "13px Segoe UI";
+      ctx.font = "16px Segoe UI";
       ctx.textAlign = "center";
 
       // Draw trunk
@@ -126,13 +126,13 @@
         ctx.beginPath();
         ctx.arc(cat.x, cat.y, 6, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.fillText(cat.name, cat.x, cat.y - 10);
+        ctx.fillText(cat.name, cat.x, cat.y - 12);
 
         // Draw skills as leaves
         cat.skills.forEach((skill, i) => {
-          const offset = (i - (cat.skills.length - 1) / 2) * 30;
+          const offset = (i - (cat.skills.length - 1) / 2) * 60;
           const skillX = cat.x + offset;
-          const skillY = cat.y - 60;
+          const skillY = cat.y - 70;
 
           ctx.beginPath();
           ctx.moveTo(cat.x, cat.y);
@@ -142,7 +142,7 @@
           ctx.beginPath();
           ctx.arc(skillX, skillY, 6, 0, 2 * Math.PI);
           ctx.fill();
-          ctx.fillText(skill, skillX, skillY - 10);
+          ctx.fillText(skill, skillX, skillY - 12);
         });
       });
     }
