@@ -1,0 +1,95 @@
+/* === Ogólne ustawienia === */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* === Pasek nawigacyjny === */
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #438A36;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #2e6526;
+}
+
+/* === Sekcja główna === */
+.main-section {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* === Sekcja hero (nagłówek) === */
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #438A36;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* === Sekcja About === */
+.content h2 {
+  font-size: 1.8rem;
+  color: #438A36;
+  margin-top: 2rem;
+}
+
+.content p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* === Stopka === */
+footer {
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  color: #888;
+  border-top: 1px solid #ddd;
+  margin-top: 3rem;
+}
+
+/* === Responsywność === */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .main-section {
+    padding: 1rem;
+  }
+}
