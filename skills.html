@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills | Paula Koralewska</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffffff;
+      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+    .tooltip {
+      position: absolute;
+      background-color: #438A36;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      color: #438A36;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Skills Tree</h1>
+  <canvas id="skillsTree" width="800" height="600"></canvas>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    const canvas = document.getElementById("skillsTree");
+    const ctx = canvas.getContext("2d");
+    const tooltip = document.getElementById("tooltip");
+
+    const skills = [
+      // Data Analysis
+      { name: "Python", x: 400, y: 100 },
+      { name: "Pandas", x: 320, y: 160 },
+      { name: "NumPy", x: 480, y: 160 },
+      { name: "R", x: 270, y: 220 },
+      { name: "SQL", x: 530, y: 220 },
+      { name: "Excel", x: 210, y: 280 },
+      { name: "noSQL", x: 590, y: 280 },
+      // ML
+      { name: "TensorFlow", x: 400, y: 300 },
+      { name: "Keras", x: 340, y: 360 },
+      // Viz
+      { name: "Matplotlib", x: 460, y: 360 },
+      { name: "Seaborn", x: 280, y: 420 },
+      { name: "Tableau", x: 520, y: 420 },
+      { name: "Plotly", x: 220, y: 480 },
+      { name: "Power BI", x: 580, y: 480 },
+      // Tools
+      { name: "Git", x: 400, y: 500 },
+      { name: "Jupyter", x: 340, y: 550 },
+      { name: "VS Code", x: 460, y: 550 }
+    ];
+
+    function drawTree() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "#438A36";
+      ctx.lineWidth = 2;
+
+      // central trunk
+      ctx.beginPath();
+      ctx.moveTo(400, 600);
+      ctx.lineTo(400, 100);
+      ctx.stroke();
+
+      skills.forEach(skill => {
+        ctx.beginPath();
+        ctx.moveTo(400, 100);
+        ctx.lineTo(skill.x, skill.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(skill.x, skill.y, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = "#438A36";
+        ctx.fill();
+      });
+    }
+
+    canvas.addEventListener("mousemove", e => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      let found = false;
+
+      skills.forEach(skill => {
+        const dx = x - skill.x;
+        const dy = y - skill.y;
+        if (Math.sqrt(dx * dx + dy * dy) < 10) {
+          tooltip.style.left = `${e.pageX + 10}px`;
+          tooltip.style.top = `${e.pageY + 10}px`;
+          tooltip.textContent = skill.name;
+          tooltip.style.opacity = 1;
+          found = true;
+        }
+      });
+
+      if (!found) {
+        tooltip.style.opacity = 0;
+      }
+    });
+
+    drawTree();
+  </script>
+</body>
+</html>
