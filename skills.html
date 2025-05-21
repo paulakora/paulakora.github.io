@@ -52,107 +52,88 @@
     <a href="contact.html">Contact</a>
   </nav>
 
-  <h1>My Skills Tree</h1>
-  <canvas id="skillsTree" width="1600" height="1300"></canvas>
+  <h1>My Skills Constellation</h1>
+  <canvas id="skillsCanvas" width="1600" height="1000"></canvas>
 
   <script>
-    const canvas = document.getElementById("skillsTree");
+    const canvas = document.getElementById("skillsCanvas");
     const ctx = canvas.getContext("2d");
 
-    const baseX = 800;
-    const baseY = 1250;
-
-    const categories = [
-      {
-        name: "Soft Skills",
-        branchY: baseY - 1000,
-        offset: 55,
-        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
-      },
-      {
-        name: "Learning",
-        branchY: baseY - 800,
-        offset: 50,
-        skills: ["Docker", "FastAPI", "NLP", "LLM", "Streamlit"]
-      },
-      {
-        name: "Machine Learning",
-        branchY: baseY - 650,
-        offset: 60,
-        skills: ["TensorFlow", "Keras", "scikit-learn"]
-      },
-      {
-        name: "Tools",
-        branchY: baseY - 500,
-        offset: 50,
-        skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
-      },
-      {
-        name: "Visualization",
-        branchY: baseY - 350,
-        offset: 45,
-        skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
-      },
-      {
-        name: "Data Analysis",
-        branchY: baseY - 200,
-        offset: 45,
-        skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
-      }
+    const skills = [
+      { name: "Python", x: 300, y: 300 },
+      { name: "Pandas", x: 380, y: 280 },
+      { name: "NumPy", x: 450, y: 330 },
+      { name: "R", x: 520, y: 310 },
+      { name: "SQL", x: 600, y: 350 },
+      { name: "noSQL", x: 670, y: 320 },
+      { name: "Excel", x: 740, y: 300 },
+      { name: "Git", x: 420, y: 420 },
+      { name: "Jupyter", x: 500, y: 450 },
+      { name: "Colab", x: 580, y: 470 },
+      { name: "VS Code", x: 660, y: 460 },
+      { name: "RStudio", x: 740, y: 440 },
+      { name: "TensorFlow", x: 860, y: 300 },
+      { name: "Keras", x: 930, y: 270 },
+      { name: "scikit-learn", x: 1000, y: 310 },
+      { name: "Matplotlib", x: 1080, y: 340 },
+      { name: "Seaborn", x: 1150, y: 300 },
+      { name: "Plotly", x: 1220, y: 270 },
+      { name: "ggplot2", x: 1290, y: 290 },
+      { name: "Tableau", x: 1360, y: 320 },
+      { name: "Looker Studio", x: 1430, y: 350 },
+      { name: "Power BI", x: 1500, y: 370 },
+      { name: "Docker", x: 980, y: 450 },
+      { name: "FastAPI", x: 1060, y: 470 },
+      { name: "NLP", x: 1140, y: 490 },
+      { name: "LLM", x: 1220, y: 510 },
+      { name: "Streamlit", x: 1300, y: 530 },
+      { name: "Curiosity", x: 380, y: 600 },
+      { name: "Problem solving", x: 480, y: 620 },
+      { name: "Team collaboration", x: 580, y: 640 },
+      { name: "Responsibility", x: 680, y: 660 }
     ];
 
-    function drawTree() {
+    const connections = [
+      ["Python", "Pandas"], ["Pandas", "NumPy"], ["NumPy", "R"],
+      ["SQL", "noSQL"], ["noSQL", "Excel"],
+      ["Git", "Jupyter"], ["Jupyter", "Colab"], ["Colab", "VS Code"],
+      ["TensorFlow", "Keras"], ["Keras", "scikit-learn"],
+      ["Matplotlib", "Seaborn"], ["Seaborn", "Plotly"],
+      ["ggplot2", "Tableau"], ["Tableau", "Looker Studio"],
+      ["Docker", "FastAPI"], ["FastAPI", "NLP"], ["NLP", "LLM"], ["LLM", "Streamlit"],
+      ["Curiosity", "Problem solving"], ["Problem solving", "Team collaboration"], ["Team collaboration", "Responsibility"]
+    ];
+
+    function drawConstellation() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.strokeStyle = "#438A36";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1.5;
       ctx.fillStyle = "#438A36";
-      ctx.font = "16px Segoe UI";
+      ctx.font = "14px Segoe UI";
       ctx.textAlign = "center";
 
-      // Draw trunk
-      ctx.beginPath();
-      ctx.moveTo(baseX, baseY);
-      ctx.lineTo(baseX, categories[0].branchY);
-      ctx.stroke();
-
-      categories.forEach((cat, idx) => {
-        // Draw category branch
-        ctx.beginPath();
-        ctx.moveTo(baseX, cat.branchY + 70);
-        ctx.lineTo(baseX, cat.branchY);
-        ctx.stroke();
-
-        // Draw category background box
-        const rectWidth = 180;
-        const rectHeight = 30;
-        ctx.fillStyle = "#438A36";
-        ctx.fillRect(baseX - rectWidth / 2, cat.branchY - rectHeight / 2, rectWidth, rectHeight);
-
-        // Draw category label
-        ctx.fillStyle = "#fff";
-        ctx.fillText(cat.name, baseX, cat.branchY + 5);
-
-        // Draw skills
-        ctx.fillStyle = "#438A36";
-        cat.skills.forEach((skill, i) => {
-          const offset = (i - (cat.skills.length - 1) / 2) * cat.offset;
-          const skillX = baseX + offset;
-          const skillY = cat.branchY - 70;
-
+      // Draw lines
+      connections.forEach(([from, to]) => {
+        const start = skills.find(s => s.name === from);
+        const end = skills.find(s => s.name === to);
+        if (start && end) {
           ctx.beginPath();
-          ctx.moveTo(baseX, cat.branchY);
-          ctx.lineTo(skillX, skillY);
+          ctx.moveTo(start.x, start.y);
+          ctx.lineTo(end.x, end.y);
           ctx.stroke();
+        }
+      });
 
-          ctx.beginPath();
-          ctx.arc(skillX, skillY, 6, 0, 2 * Math.PI);
-          ctx.fill();
-          ctx.fillText(skill, skillX, skillY - 12);
-        });
+      // Draw stars
+      skills.forEach(skill => {
+        ctx.beginPath();
+        ctx.arc(skill.x, skill.y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillText(skill.name, skill.x, skill.y - 10);
       });
     }
 
-    drawTree();
+    drawConstellation();
   </script>
 </body>
 </html>
