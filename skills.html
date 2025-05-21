@@ -53,51 +53,57 @@
   </nav>
 
   <h1>My Skills Tree</h1>
-  <canvas id="skillsTree" width="1600" height="1000"></canvas>
+  <canvas id="skillsTree" width="1600" height="1200"></canvas>
 
   <script>
     const canvas = document.getElementById("skillsTree");
     const ctx = canvas.getContext("2d");
 
     const baseX = 800;
-    const baseY = 950;
+    const baseY = 1150;
 
     const categories = [
       {
         name: "Data Analysis",
-        x: baseX - 500,
+        x: baseX - 450,
         y: baseY - 200,
+        offset: 45,
         skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
-      },
-      {
-        name: "Machine Learning",
-        x: baseX - 250,
-        y: baseY - 300,
-        skills: ["TensorFlow", "Keras", "scikit-learn"]
-      },
-      {
-        name: "Visualization",
-        x: baseX + 250,
-        y: baseY - 300,
-        skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
       },
       {
         name: "Tools",
         x: baseX - 300,
-        y: baseY - 500,
+        y: baseY - 400,
+        offset: 50,
         skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
       },
       {
-        name: "Soft Skills",
-        x: baseX + 300,
-        y: baseY - 500,
-        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
+        name: "Machine Learning",
+        x: baseX - 100,
+        y: baseY - 550,
+        offset: 60,
+        skills: ["TensorFlow", "Keras", "scikit-learn"]
       },
       {
         name: "Learning",
-        x: baseX,
-        y: baseY - 650,
+        x: baseX + 100,
+        y: baseY - 550,
+        offset: 50,
         skills: ["Docker", "FastAPI", "NLP", "LLM", "Streamlit"]
+      },
+      {
+        name: "Visualization",
+        x: baseX + 300,
+        y: baseY - 400,
+        offset: 45,
+        skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
+      },
+      {
+        name: "Soft Skills",
+        x: baseX + 450,
+        y: baseY - 200,
+        offset: 55,
+        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
       }
     ];
 
@@ -130,7 +136,7 @@
 
         // Draw skills as leaves
         cat.skills.forEach((skill, i) => {
-          const offset = (i - (cat.skills.length - 1) / 2) * 60;
+          const offset = (i - (cat.skills.length - 1) / 2) * cat.offset;
           const skillX = cat.x + offset;
           const skillY = cat.y - 70;
 
