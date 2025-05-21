@@ -17,33 +17,47 @@
       margin: 0 auto;
       background-color: #fff;
     }
-    .tooltip {
-      position: absolute;
-      background-color: #438A36;
-      color: white;
-      padding: 0.5rem;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
     h1 {
       text-align: center;
       margin-top: 2rem;
       color: #438A36;
     }
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #438A36;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover {
+      color: #2e6526;
+    }
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <a href="index.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="skills.html">Skills</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
   <h1>My Skills Tree</h1>
   <canvas id="skillsTree" width="900" height="700"></canvas>
-  <div class="tooltip" id="tooltip"></div>
 
   <script>
     const canvas = document.getElementById("skillsTree");
     const ctx = canvas.getContext("2d");
-    const tooltip = document.getElementById("tooltip");
 
     const baseX = 450;
     const baseY = 650;
@@ -51,33 +65,39 @@
     const categories = [
       {
         name: "Data Analysis",
-        x: baseX - 200,
+        x: baseX - 250,
         y: baseY - 150,
         skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
       },
       {
         name: "Machine Learning",
-        x: baseX,
-        y: baseY - 200,
-        skills: ["TensorFlow", "Keras"]
+        x: baseX - 100,
+        y: baseY - 250,
+        skills: ["TensorFlow", "Keras", "scikit-learn"]
       },
       {
         name: "Visualization",
-        x: baseX + 200,
-        y: baseY - 150,
+        x: baseX + 100,
+        y: baseY - 250,
         skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
       },
       {
         name: "Tools",
-        x: baseX - 100,
-        y: baseY - 300,
+        x: baseX - 150,
+        y: baseY - 370,
         skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
       },
       {
         name: "Soft Skills",
-        x: baseX + 100,
-        y: baseY - 300,
+        x: baseX + 150,
+        y: baseY - 370,
         skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
+      },
+      {
+        name: "Learning",
+        x: baseX,
+        y: baseY - 470,
+        skills: ["Docker", "FastAPI", "NLP", "LLM", "Streamlit"]
       }
     ];
 
@@ -86,6 +106,8 @@
       ctx.strokeStyle = "#438A36";
       ctx.lineWidth = 2;
       ctx.fillStyle = "#438A36";
+      ctx.font = "12px Segoe UI";
+      ctx.textAlign = "center";
 
       // Draw trunk
       ctx.beginPath();
@@ -104,6 +126,7 @@
         ctx.beginPath();
         ctx.arc(cat.x, cat.y, 6, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.fillText(cat.name, cat.x, cat.y - 10);
 
         // Draw skills as leaves
         cat.skills.forEach((skill, i) => {
@@ -119,36 +142,10 @@
           ctx.beginPath();
           ctx.arc(skillX, skillY, 6, 0, 2 * Math.PI);
           ctx.fill();
-
-          cat.skills[i] = { name: skill, x: skillX, y: skillY };
+          ctx.fillText(skill, skillX, skillY - 10);
         });
       });
     }
-
-    canvas.addEventListener("mousemove", e => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      let found = false;
-
-      categories.forEach(cat => {
-        cat.skills.forEach(skill => {
-          const dx = x - skill.x;
-          const dy = y - skill.y;
-          if (Math.sqrt(dx * dx + dy * dy) < 10) {
-            tooltip.style.left = `${e.pageX + 10}px`;
-            tooltip.style.top = `${e.pageY + 10}px`;
-            tooltip.textContent = skill.name;
-            tooltip.style.opacity = 1;
-            found = true;
-          }
-        });
-      });
-
-      if (!found) {
-        tooltip.style.opacity = 0;
-      }
-    });
 
     drawTree();
   </script>
