@@ -53,57 +53,51 @@
   </nav>
 
   <h1>My Skills Tree</h1>
-  <canvas id="skillsTree" width="1600" height="1200"></canvas>
+  <canvas id="skillsTree" width="1600" height="1300"></canvas>
 
   <script>
     const canvas = document.getElementById("skillsTree");
     const ctx = canvas.getContext("2d");
 
     const baseX = 800;
-    const baseY = 1150;
+    const baseY = 1250;
 
     const categories = [
       {
-        name: "Data Analysis",
-        x: baseX - 450,
-        y: baseY - 200,
-        offset: 45,
-        skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
-      },
-      {
-        name: "Tools",
-        x: baseX - 300,
-        y: baseY - 400,
-        offset: 50,
-        skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
-      },
-      {
-        name: "Machine Learning",
-        x: baseX - 100,
-        y: baseY - 550,
-        offset: 60,
-        skills: ["TensorFlow", "Keras", "scikit-learn"]
+        name: "Soft Skills",
+        branchY: baseY - 1000,
+        offset: 55,
+        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
       },
       {
         name: "Learning",
-        x: baseX + 100,
-        y: baseY - 550,
+        branchY: baseY - 800,
         offset: 50,
         skills: ["Docker", "FastAPI", "NLP", "LLM", "Streamlit"]
       },
       {
+        name: "Machine Learning",
+        branchY: baseY - 650,
+        offset: 60,
+        skills: ["TensorFlow", "Keras", "scikit-learn"]
+      },
+      {
+        name: "Tools",
+        branchY: baseY - 500,
+        offset: 50,
+        skills: ["Git", "Jupyter", "Colab", "VS Code", "RStudio"]
+      },
+      {
         name: "Visualization",
-        x: baseX + 300,
-        y: baseY - 400,
+        branchY: baseY - 350,
         offset: 45,
         skills: ["Matplotlib", "Seaborn", "Plotly", "ggplot2", "Tableau", "Looker Studio", "Power BI"]
       },
       {
-        name: "Soft Skills",
-        x: baseX + 450,
-        y: baseY - 200,
-        offset: 55,
-        skills: ["Curiosity", "Problem solving", "Team collaboration", "Responsibility"]
+        name: "Data Analysis",
+        branchY: baseY - 200,
+        offset: 45,
+        skills: ["Python", "Pandas", "NumPy", "R", "SQL", "noSQL", "Excel"]
       }
     ];
 
@@ -118,30 +112,35 @@
       // Draw trunk
       ctx.beginPath();
       ctx.moveTo(baseX, baseY);
-      ctx.lineTo(baseX, baseY - 100);
+      ctx.lineTo(baseX, categories[0].branchY);
       ctx.stroke();
 
-      categories.forEach(cat => {
-        // Draw branch to category
+      categories.forEach((cat, idx) => {
+        // Draw category branch
         ctx.beginPath();
-        ctx.moveTo(baseX, baseY - 100);
-        ctx.lineTo(cat.x, cat.y);
+        ctx.moveTo(baseX, cat.branchY + 70);
+        ctx.lineTo(baseX, cat.branchY);
         ctx.stroke();
 
-        // Draw category point
-        ctx.beginPath();
-        ctx.arc(cat.x, cat.y, 6, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.fillText(cat.name, cat.x, cat.y - 12);
+        // Draw category background box
+        const rectWidth = 180;
+        const rectHeight = 30;
+        ctx.fillStyle = "#438A36";
+        ctx.fillRect(baseX - rectWidth / 2, cat.branchY - rectHeight / 2, rectWidth, rectHeight);
 
-        // Draw skills as leaves
+        // Draw category label
+        ctx.fillStyle = "#fff";
+        ctx.fillText(cat.name, baseX, cat.branchY + 5);
+
+        // Draw skills
+        ctx.fillStyle = "#438A36";
         cat.skills.forEach((skill, i) => {
           const offset = (i - (cat.skills.length - 1) / 2) * cat.offset;
-          const skillX = cat.x + offset;
-          const skillY = cat.y - 70;
+          const skillX = baseX + offset;
+          const skillY = cat.branchY - 70;
 
           ctx.beginPath();
-          ctx.moveTo(cat.x, cat.y);
+          ctx.moveTo(baseX, cat.branchY);
           ctx.lineTo(skillX, skillY);
           ctx.stroke();
 
