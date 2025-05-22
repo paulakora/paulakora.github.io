@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paula Koralewska | Data Portfolio</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -14,13 +15,14 @@
       font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
     }
+    h1, h2, h3 {
+      color: #438A36;
+      font-family: 'Rubik', sans-serif;
+    }
     header, section {
       padding: 4rem 2rem;
       max-width: 1000px;
       margin: auto;
-    }
-    h1, h2 {
-      color: #438A36;
     }
     .navbar {
       position: sticky;
@@ -42,10 +44,24 @@
     .navbar a:hover {
       color: #2e6526;
     }
-    canvas {
-      display: block;
-      margin: 2rem auto;
-      background-color: #fff;
+    .skill-category {
+      background-color: #e6f4ea;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .skill-item {
+      flex: 1 1 calc(33.33% - 1rem);
+      background-color: #f9f9f9;
+      padding: 0.5rem 1rem;
+      border-left: 4px solid #438A36;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
   </style>
 </head>
@@ -71,63 +87,75 @@
     <p>Coming soon: detailed descriptions of data analytics and machine learning projects including links, visuals, and results.</p>
   </section>
 
-    <section id="skills">
+  <section id="skills">
     <h2>Skills</h2>
 
-    <h3>Data Analysis</h3>
-    <ul>
-      <li>Python</li>
-      <li>Pandas</li>
-      <li>NumPy</li>
-      <li>R</li>
-      <li>SQL</li>
-      <li>noSQL</li>
-      <li>Excel</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Data Analysis</h3>
+      <div class="skills-grid">
+        <div class="skill-item">Python</div>
+        <div class="skill-item">Pandas</div>
+        <div class="skill-item">NumPy</div>
+        <div class="skill-item">R</div>
+        <div class="skill-item">SQL</div>
+        <div class="skill-item">noSQL</div>
+        <div class="skill-item">Excel</div>
+      </div>
+    </div>
 
-    <h3>Tools</h3>
-    <ul>
-      <li>Git</li>
-      <li>Jupyter</li>
-      <li>Colab</li>
-      <li>VS Code</li>
-      <li>RStudio</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Tools</h3>
+      <div class="skills-grid">
+        <div class="skill-item">Git</div>
+        <div class="skill-item">Jupyter</div>
+        <div class="skill-item">Colab</div>
+        <div class="skill-item">VS Code</div>
+        <div class="skill-item">RStudio</div>
+      </div>
+    </div>
 
-    <h3>Machine Learning</h3>
-    <ul>
-      <li>TensorFlow</li>
-      <li>Keras</li>
-      <li>scikit-learn</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Machine Learning</h3>
+      <div class="skills-grid">
+        <div class="skill-item">TensorFlow</div>
+        <div class="skill-item">Keras</div>
+        <div class="skill-item">scikit-learn</div>
+      </div>
+    </div>
 
-    <h3>Visualization</h3>
-    <ul>
-      <li>Matplotlib</li>
-      <li>Seaborn</li>
-      <li>Plotly</li>
-      <li>ggplot2</li>
-      <li>Tableau</li>
-      <li>Looker Studio</li>
-      <li>Power BI</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Visualization</h3>
+      <div class="skills-grid">
+        <div class="skill-item">Matplotlib</div>
+        <div class="skill-item">Seaborn</div>
+        <div class="skill-item">Plotly</div>
+        <div class="skill-item">ggplot2</div>
+        <div class="skill-item">Tableau</div>
+        <div class="skill-item">Looker Studio</div>
+        <div class="skill-item">Power BI</div>
+      </div>
+    </div>
 
-    <h3>Learning & Development</h3>
-    <ul>
-      <li>Docker</li>
-      <li>FastAPI</li>
-      <li>NLP</li>
-      <li>LLM</li>
-      <li>Streamlit</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Learning & Development</h3>
+      <div class="skills-grid">
+        <div class="skill-item">Docker</div>
+        <div class="skill-item">FastAPI</div>
+        <div class="skill-item">NLP</div>
+        <div class="skill-item">LLM</div>
+        <div class="skill-item">Streamlit</div>
+      </div>
+    </div>
 
-    <h3>Soft Skills</h3>
-    <ul>
-      <li>Curiosity</li>
-      <li>Problem solving</li>
-      <li>Team collaboration</li>
-      <li>Responsibility</li>
-    </ul>
+    <div class="skill-category">
+      <h3>Soft Skills</h3>
+      <div class="skills-grid">
+        <div class="skill-item">Curiosity</div>
+        <div class="skill-item">Problem solving</div>
+        <div class="skill-item">Team collaboration</div>
+        <div class="skill-item">Responsibility</div>
+      </div>
+    </div>
   </section>
 
   <section id="contact">
