@@ -1,35 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paula Koralewska | Data Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffffff;
+      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+    header, section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #438A36;
+    }
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #438A36;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover {
+      color: #2e6526;
+    }
+    canvas {
+      display: block;
+      margin: 2rem auto;
+      background-color: #fff;
+    }
+  </style>
 </head>
 <body>
-    <header class="hero">
+  <nav class="navbar">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header id="about">
     <h1>Paula Koralewska</h1>
-    <p>Data analytics and machine learning projects</p>
+    <p>I’m a curious and collaborative data enthusiast who finds energy in solving meaningful problems — especially when it happens in a team full of ideas.</p>
+
+    <p>I believe technology should be accessible and helpful for everyone, which is why I’m actively involved in a student research group developing a decision-support app for seniors with dementia.</p>
+
+    <p>I care about creating a positive atmosphere where people can exchange perspectives, inspire each other, and work toward shared goals. When I join a project, I bring both focus and engagement — because I genuinely care about where we're going and how we get there.</p>
   </header>
-  
-    <nav class="navbar">
-      <a href="index.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="skills.html">Skills</a>
-      <a href="contact.html">Contact</a>
-    </nav>
 
-  <main class="main-section">
-    <section class="content">
-      <h2>About Me</h2>
-      <p>I’m a curious and collaborative data enthusiast who finds energy in solving meaningful problems — especially when it happens in a team full of ideas.</p>
-      <p>I believe technology should be accessible and helpful for everyone, which is why I’m actively involved in a student research group developing a decision-support app for seniors with dementia.</p>
-      <p>I care about creating a positive atmosphere where people can exchange perspectives, inspire each other, and work toward shared goals. When I join a project, I bring both focus and engagement — because I genuinely care about where we're going and how we get there.</p>
-    </section>
-  </main>
+  <section id="projects">
+    <h2>Projects</h2>
+    <p>Coming soon: detailed descriptions of data analytics and machine learning projects including links, visuals, and results.</p>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 Paula Koralewska</p>
-  </footer>
+  <section id="skills">
+    <h2>Skills</h2>
+    <canvas id="skillsCanvas" width="1600" height="1000"></canvas>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+  </section>
+
+  <script>
+    const canvas = document.getElementById("skillsCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const skills = [
+      { name: "Python", x: 300, y: 300 },
+      { name: "Pandas", x: 380, y: 280 },
+      { name: "NumPy", x: 450, y: 330 },
+      { name: "R", x: 520, y: 310 },
+      { name: "SQL", x: 600, y: 350 },
+      { name: "noSQL", x: 670, y: 320 },
+      { name: "Excel", x: 740, y: 300 },
+      { name: "Git", x: 420, y: 420 },
+      { name: "Jupyter", x: 500, y: 450 },
+      { name: "Colab", x: 580, y: 470 },
+      { name: "VS Code", x: 660, y: 460 },
+      { name: "RStudio", x: 740, y: 440 },
+      { name: "TensorFlow", x: 860, y: 300 },
+      { name: "Keras", x: 930, y: 270 },
+      { name: "scikit-learn", x: 1000, y: 310 },
+      { name: "Matplotlib", x: 1080, y: 340 },
+      { name: "Seaborn", x: 1150, y: 300 },
+      { name: "Plotly", x: 1220, y: 270 },
+      { name: "ggplot2", x: 1290, y: 290 },
+      { name: "Tableau", x: 1360, y: 320 },
+      { name: "Looker Studio", x: 1430, y: 350 },
+      { name: "Power BI", x: 1500, y: 370 },
+      { name: "Docker", x: 980, y: 450 },
+      { name: "FastAPI", x: 1060, y: 470 },
+      { name: "NLP", x: 1140, y: 490 },
+      { name: "LLM", x: 1220, y: 510 },
+      { name: "Streamlit", x: 1300, y: 530 },
+      { name: "Curiosity", x: 380, y: 600 },
+      { name: "Problem solving", x: 480, y: 620 },
+      { name: "Team collaboration", x: 580, y: 640 },
+      { name: "Responsibility", x: 680, y: 660 }
+    ];
+
+    const connections = [
+      ["Python", "Pandas"], ["Pandas", "NumPy"], ["NumPy", "R"],
+      ["SQL", "noSQL"], ["noSQL", "Excel"],
+      ["Git", "Jupyter"], ["Jupyter", "Colab"], ["Colab", "VS Code"],
+      ["TensorFlow", "Keras"], ["Keras", "scikit-learn"],
+      ["Matplotlib", "Seaborn"], ["Seaborn", "Plotly"],
+      ["ggplot2", "Tableau"], ["Tableau", "Looker Studio"],
+      ["Docker", "FastAPI"], ["FastAPI", "NLP"], ["NLP", "LLM"], ["LLM", "Streamlit"],
+      ["Curiosity", "Problem solving"], ["Problem solving", "Team collaboration"], ["Team collaboration", "Responsibility"]
+    ];
+
+    function drawConstellation() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = "#438A36";
+      ctx.lineWidth = 1.5;
+      ctx.fillStyle = "#438A36";
+      ctx.font = "14px Segoe UI";
+      ctx.textAlign = "center";
+
+      connections.forEach(([from, to]) => {
+        const start = skills.find(s => s.name === from);
+        const end = skills.find(s => s.name === to);
+        if (start && end) {
+          ctx.beginPath();
+          ctx.moveTo(start.x, start.y);
+          ctx.lineTo(end.x, end.y);
+          ctx.stroke();
+        }
+      });
+
+      skills.forEach(skill => {
+        ctx.beginPath();
+        ctx.arc(skill.x, skill.y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillText(skill.name, skill.x, skill.y - 10);
+      });
+    }
+
+    drawConstellation();
+  </script>
 </body>
 </html>
